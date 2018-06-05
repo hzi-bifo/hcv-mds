@@ -416,7 +416,30 @@ def main():
 		plot2d(original_name)
 	if dim == 3:
 		plot3d(original_name)
-	plt.show()
+	
+
+	stresserror_file = open(original_name + "_dist.csv.stress", 'r')
+	stresserror = stresserror_file.readlines()[0].strip()
+	stresserror_file.close()
+
+	kerror_file = open(original_name + "_dist.csv.kerror", 'r')
+	kerror = kerror_file.readlines()[0].strip()
+	kerror_file.close()
+
+	print("Stress:", stresserror)
+	print("Kruskal's error in %:", kerror)
+	
+	if loo==1:
+
+		looerror_file = open(original_name + "_dist.csv.loo", 'r')
+		looerror = looerror_file.readlines()[0].strip()
+		looerror_file.close()
+		print("Leave-one-out error:", looerror)
+
+
+	
+
+	plt.show(block=False)
 
 
 if __name__ == "__main__":
