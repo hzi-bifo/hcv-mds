@@ -59,6 +59,7 @@ newmatrix = data
 neterror<-c()
 if (loo == 1)
 {
+  print("Computing Loo erros. Please wait ...")
   for (i in 1:rl)
   {
     for (j in 1:cl)
