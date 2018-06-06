@@ -1,5 +1,6 @@
 from __future__ import print_function
 import sys
+import time
 import os.path
 import math
 import copy
@@ -10,6 +11,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.patches as mpatches
 from mpl_toolkits.mplot3d import Axes3D
+from sklearn.metrics import silhouette_score
+from scipy.spatial.distance import cdist
+from sklearn.cluster import KMeans as km
 
 def runmap(name,wm,dim,loo):
 	inputfile=name+"_dist.csv"
@@ -298,7 +302,7 @@ def plot2d(name):
 
 	plt.savefig('map.eps', format='eps', dpi=800)
 	plt.savefig('myimage.svg', format='svg',figsize=(10,10),dpi=800)
-	plt.show()
+	plt.show(block = False)
 
 
 def plot3d(name):
@@ -372,6 +376,53 @@ def plot3d(name):
 	plt.legend(handles=[gt1, gt2, gt3, gt4, gt5, gt6],fontsize = 'x-small')
 	plt.savefig('map3d.eps', format='eps', dpi=800)
 	plt.savefig('myimage3d.png', format='png',figsize=(10,10),dpi=800)
+	plt.show(block = False)
+
+
+def silhoutte(name):
+	df = pd.read_csv(name + "_dist.csv.virus")
+	xs = list(df['x'])
+	ys = list(df['y'])
+	xs = xs - min(xs)
+	ys = ys - min(ys)
+	X = np.matrix(zip(xs,ys))
+	stat=open('kstatistics.csv','w')
+	ncluster=[]
+	distortion_set=[]
+	silh=[]
+	for nc in range(2,13):
+		kmeans = km(n_clusters=nc).fit(X)
+		cluster_labels = kmeans.fit_predict(X)
+		silhouette_avg = silhouette_score(X, cluster_labels)
+		#print("For n_clusters =", no_cluster, "The average silhouette_score is :", silhouette_avg)
+		labels = kmeans.labels_
+		dist = kmeans.transform(X)
+		distortion=0
+		distortion= (sum(np.min(cdist(X, kmeans.cluster_centers_, 'euclidean'), axis=1)) / X.shape[0])
+		ncluster.append(nc)
+		distortion_set.append(distortion)
+		silh.append(silhouette_avg)
+
+		#print kmeans.cluster_centers_, sum(np.min(cdist(X, kmeans.cluster_centers_, 'euclidean'), axis=1))/13
+
+		print (nc, distortion, silhouette_avg)
+		print (nc, distortion, silhouette_avg, file = stat)
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	plt.plot(ncluster, distortion_set, '-o')
+	ax.set_xlabel('No.of clusters')
+	ax.set_ylabel('Distortion')
+	ax.set_title("Selecting K with Elbow method",fontsize=10)
+	plt.show(block = False)
+
+	fig1 = plt.figure()
+	ax1 = fig1.add_subplot(111)
+	plt.plot(ncluster, silh, '-o')
+	ax1.set_xlabel('No.of clusters')
+	ax1.set_ylabel('Silhoutte error')
+	ax1.set_title("Selecting K with Silhoutte Error",fontsize=10)
+	plt.show(block = False)
+
 
 
 def main():
@@ -380,6 +431,7 @@ def main():
 	dim = 2
 	loo = 0
 	#print ("ndwndwi")
+
 
 	#Read options from commandline
 	original_matrixfile, norm, weight, dim, loo = addoptions()
@@ -416,7 +468,8 @@ def main():
 		plot2d(original_name)
 	if dim == 3:
 		plot3d(original_name)
-	
+
+	print("------------------------------Results-----------------------------------------\n")
 
 	stresserror_file = open(original_name + "_dist.csv.stress", 'r')
 	stresserror = stresserror_file.readlines()[0].strip()
@@ -427,19 +480,19 @@ def main():
 	kerror_file.close()
 
 	print("Stress:", stresserror)
-	print("Kruskal's error in %:", kerror)
+	print("Kruskal's error in %:", kerror,"\n")
 	
 	if loo==1:
 
 		looerror_file = open(original_name + "_dist.csv.loo", 'r')
 		looerror = looerror_file.readlines()[0].strip()
 		looerror_file.close()
-		print("Leave-one-out error:", looerror)
+		print("Leave-one-out error:", looerror,"\n")
 
+	print("-------------------------Cluster Analysis-------------------------------------\n")
+	silhoutte(original_name)
 
-	
-
-	plt.show(block=False)
+	plt.show()
 
 
 if __name__ == "__main__":
