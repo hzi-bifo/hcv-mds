@@ -14,6 +14,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.metrics import silhouette_score
 from scipy.spatial.distance import cdist
 from sklearn.cluster import KMeans as km
+import gap
 
 def runmap(name,wm,dim,loo):
 	inputfile=name+"_dist.csv"
@@ -415,13 +416,56 @@ def silhoutte(name):
 	ax.set_title("Selecting K with Elbow method",fontsize=10)
 	plt.show(block = False)
 
-	fig1 = plt.figure()
+	'''fig1 = plt.figure()
 	ax1 = fig1.add_subplot(111)
 	plt.plot(ncluster, silh, '-o')
 	ax1.set_xlabel('No.of clusters')
 	ax1.set_ylabel('Silhoutte error')
 	ax1.set_title("Selecting K with Silhoutte Error",fontsize=10)
+	plt.show(block = False)'''
+
+	fig2 = plt.figure()
+
+
+def gapsstatistics(name):
+	df = pd.read_csv(name + "_dist.csv.virus")
+	xs = list(df['x'])
+	ys = list(df['y'])
+	X = np.array(zip(xs,ys))
+	#print(X)
+	#n_clusters = optimalK(df, cluster_array=np.arange(1, 5))
+	#print (optimalK.gap_df.head())
+	avg_gap = []
+	for i in range(1, 5):
+		gaps, s_k, K = gap.gap_statistic(X, refs = None, B = 10, K = range(1,13), N_init = 10)
+		avg_gap.append(gaps)
+
+	avg_gap = np.array(avg_gap)
+	nc=[]
+	avg_gaperror=[]
+	max_gap=0
+	max_gap_nc=1
+	for i in range(12):
+		gerror=np.mean(avg_gap[:,i])
+		nc.append(i + 1)
+		avg_gaperror.append(gerror)
+		if gerror >= max_gap:
+			max_gap = gerror
+			max_gap_nc = i+1
+		print (i+1, np.mean(gerror))
+	fig = plt.figure()
+	min_gap=min(avg_gaperror)
+	ax = fig.add_subplot(111)
+	plt.plot(nc, avg_gaperror, '-o')
+	ax.set_xlabel('No.of clusters')
+	ax.set_ylabel('Gap error')
+	ax.set_title("Selecting K with Gap statistics",fontsize=10)
+	ax.arrow(max_gap_nc,plt.ylim()[0],0,max_gap+abs(plt.ylim()[0]),width=0.02,color='red',head_length=0.0,head_width=0.0)
+	ax.arrow(0,max_gap,max_gap_nc,0,width=0.0005,color='red',head_length=0.0,head_width=0.0)
+	print ("Best k:",max_gap_nc)
 	plt.show(block = False)
+
+
 
 
 
@@ -491,7 +535,17 @@ def main():
 
 	print("-------------------------Cluster Analysis-------------------------------------\n")
 	silhoutte(original_name)
+	print("\n")
+	gapsstatistics(original_name)
 
+	
+	#print("Pausing works")
+	print ("Do you want to see silhoutte plots? Enter yes/no:")
+	choice = raw_input()
+	if choice == "yes" or choice == "Yes" or choice == "YES":
+		os.system("python2 silhoutte.py")
+	else:
+		print("wrong choice")
 	plt.show()
 
 
