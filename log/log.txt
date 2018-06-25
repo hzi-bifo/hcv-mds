@@ -1,0 +1,99 @@
+0 0 2
+All values considered
+minimum column values:  [12.69, 3.01, 8.35, 2.0, 5.47, 4.44, 14.86, 1.43, 0.22, 1.13, 7.36, 0.0, 29.79]
+basis: 0
+No normalization
+../processing/data data ../processing/data_wm.csv ../processing/data_dist.csv ../processing/data-distances.txt
+Loading required package: polynom
+Loading required package: rgl
+
+Attaching package: ‘rgl’
+
+The following object is masked from ‘package:plotrix’:
+
+    mtext3d
+
+Loading required package: scatterplot3d
+Loading required package: Hmisc
+Loading required package: lattice
+Loading required package: survival
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: ‘Hmisc’
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+Loading required package: colorspace
+Loading required package: methods
+[1] 437582.1
+[33.288424163082297, 24.661129192048897, 55.80771157442571, 39.130519563863601, 26.101075232638603, -43.446194403217795, 16.340817709781, -30.067466793178301, -4.5362547840858403, -11.3224563302101, -12.9429182829567, -16.7300375233769, -76.284349318819508] -76.2843493188
+[109.57277348190181, 100.94547851086841, 132.09206089324522, 115.41486888268311, 102.38542455145812, 32.838154915601713, 92.625167028600515, 46.216882525641211, 71.748094534733667, 64.961892988609407, 63.341431035862811, 59.554311795442608, 0.0] -76.2843493188
+------------------------------Results-----------------------------------------
+
+Stress: 437582.1
+Kruskal's error in %: 83.7083 
+
+-------------------------Cluster Analysis-------------------------------------
+
+2 19.1389954033 0.559309149545
+3 12.8370556165 0.546773482295
+4 10.4394871224 0.464301228525
+5 7.73435239072 0.457773411444
+6 5.93572891868 0.340767021762
+7 4.46496582968 0.291026533037
+8 3.40273872663 0.207866009055
+9 2.59860520645 0.175259084397
+10 1.87423221 0.1278158367
+11 1.22754204686 0.0930440854882
+12 0.586255173284 0.0431306455751
+
+
+1 0.0469349479474
+2 0.0840457687626
+3 0.398647959119
+4 0.305654679184
+5 0.208077314591
+6 0.452760165176
+7 0.403414480192
+8 0.46785505526
+9 0.331279542207
+10 0.334542487546
+11 -0.0419101256407
+12 -0.798800209686
+Best k: 8
+Best k from gap statistics: 8
+ Please enter the choice of k:
+{0: [0, 1, 4, 6], 1: [8, 9, 10, 11], 2: [12], 3: [2, 3], 4: [5], 5: [7]}
+Cluster 0: 2a.3, 2b.J8, 2k, Con1
+Representative:  2b.J8
+
+
+Cluster 1: 4a, 5a, H77, 1b.J4
+Representative:  H77
+
+
+Cluster 2: 2a.Jc1
+Representative:  2a.Jc1
+
+
+Cluster 3: 2b.4, 2b.5
+Representative:  2b.4
+
+
+Cluster 4: 2r
+Representative:  2r
+
+
+Cluster 5: 3a
+Representative:  3a
+
+
+invalid command name "140099662480000idle_draw"
+    while executing
+"140099662480000idle_draw"
+    ("after" script)
+Do you want to see silhoutte plots? Enter yes/no:
+wrong choice
