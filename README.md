@@ -13,7 +13,7 @@
     * **sklearn**
     * **gapkmean**
    
-  If these are not installed, you can install them with ``` **pip** ```. 
+  If these are not installed, you can install them with ``` pip ```. 
   ```
    cd ./scripts
    pip2 install -r requirements.txt 
