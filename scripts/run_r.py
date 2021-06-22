@@ -745,7 +745,7 @@ def main():
 
     if loo == 1:
 
-        looerror_file = open(original_name + "_dist.csv.loo", 'r')
+        looerror_file = open("../processing/" +original_name + "_dist.csv.loo", 'r')
         looerror = looerror_file.readlines()[0].strip()
         looerror_file.close()
         print("Leave-one-out error:", looerror, "\n")
