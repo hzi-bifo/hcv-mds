@@ -30,7 +30,7 @@
     R
     install.packages(c("plotrix", "smacof", "rgl", "polynom", "Hmisc"))
     ```
-    Please make sure that the smacof package version is 1.8.13. You can explicitly install this version by running:
+    Please make sure that the ```smacof``` package version is ```1.8.13```. You can explicitly install this version by running:
     ```
     install.packages("https://cran.r-project.org/src/contrib/Archive/smacof/smacof_1.8-13.tar.gz", repos=NULL, type='source')
     ```
