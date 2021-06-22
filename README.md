@@ -30,6 +30,10 @@
     R
     install.packages(c("plotrix", "smacof", "rgl", "polynom", "Hmisc"))
     ```
+    Please make sure that the smacof package version is 1.8.13. You can explicitly install this version by running:
+    ```
+    install.packages("https://cran.r-project.org/src/contrib/Archive/smacof/smacof_1.8-13.tar.gz", repos=NULL, type='source')
+    ```
     
 ## Usage
 * Put the file containing neutralization matrix (residual infectivity at maximum concentration) in the ```input``` folder. The file should be a comma separated **csv** file with the viruses as columns and sera as rows. Use **NA** for missing values. Here is an example:
