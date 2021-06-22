@@ -66,7 +66,7 @@ if (loo == 1)
     {
       newmatrix[i,j]=NaN
       #print (newmatrix)
-      out <- smacofRect(newmatrix,ndim=dim,verbose=FALSE,itmax=5000)
+      out <- smacofRect(newmatrix,ndim=dim,weightmat=wm,verbose=FALSE,itmax=5000)
       error<- 100*abs(data[i,j] - out$confdiss[i,j])/data[i,j]
       neterror<-c(neterror,error)
       stress1 <- round(as.numeric(out[5]),digits=2)
