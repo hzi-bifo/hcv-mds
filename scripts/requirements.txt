@@ -1,7 +1,7 @@
 gap-stat==1.0.1
 gapkmean==1.0
 matplotlib==2.1.1
-numpy==1.14.2
+numpy==1.22.0
 pandas==0.22.0
 scikit-learn==0.19.1
 scipy==1.0.1
